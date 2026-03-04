@@ -2,7 +2,7 @@
 
 import { useEffect, useLayoutEffect, useState } from "react";
 import Image from "next/image";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import Marquee from "./Marquee";
 import TextReveal from "./TextReveal";
@@ -46,9 +46,6 @@ function useIsDark() {
 export default function Hero() {
   const isDark = useIsDark();
   const [roleIndex, setRoleIndex] = useState(0);
-  const { scrollY } = useScroll();
-  const avatarY = useTransform(scrollY, [0, 400], [0, 80]);
-  const avatarOpacity = useTransform(scrollY, [0, 300], [1, 0.3]);
 
   useEffect(() => {
     const t = setInterval(() => {
@@ -60,7 +57,7 @@ export default function Hero() {
   return (
     <section
       id="accueil"
-      className={`relative min-h-[100vh] min-h-[100dvh] flex flex-col items-center justify-center px-6 pt-20 pb-40 overflow-hidden ${isDark ? "bg-black" : "bg-white"}`}
+      className={`relative min-h-[100vh] min-h-[100dvh] flex flex-col px-6 pt-20 overflow-hidden ${isDark ? "bg-black" : "bg-white"}`}
       style={isDark ? { backgroundColor: "#000" } : undefined}
     >
       {/* Gradient uniquement en mode clair */}
@@ -82,12 +79,9 @@ export default function Hero() {
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        className="flex flex-col items-center text-center max-w-4xl mx-auto"
+        className="flex-1 flex flex-col items-center justify-center text-center max-w-4xl mx-auto pb-6"
       >
-        <motion.div
-          style={{ y: avatarY, opacity: avatarOpacity }}
-          className="relative w-44 h-44 md:w-56 md:h-56 lg:w-64 lg:h-64 mb-10"
-        >
+        <div className="relative w-44 h-44 md:w-56 md:h-56 lg:w-64 lg:h-64 mb-10">
           <motion.div
             className="w-full h-full"
             animate={{ y: [0, -10, 0] }}
@@ -102,7 +96,7 @@ export default function Hero() {
               priority
             />
           </motion.div>
-        </motion.div>
+        </div>
 
         <div className="min-h-[2.5rem] flex items-center justify-center mb-4">
           <AnimatePresence mode="wait">
@@ -123,6 +117,31 @@ export default function Hero() {
             <TextReveal text="Marvyn Clouet" delay={0.2} />
           </span>
         </h1>
+
+        <p className={`flex items-center gap-2 mt-4 text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>
+          <span className="relative flex h-2.5 w-2.5">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+            <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500" />
+          </span>
+          Disponible pour des missions freelance
+        </p>
+
+        <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-4 mt-8">
+          <MagneticButton
+            as="a"
+            href="#projets"
+            className="rounded-full bg-gradient-to-r from-violet-600 to-blue-600 text-white px-6 py-3 text-sm font-medium hover:shadow-[0_0_25px_rgba(139,92,246,0.35)] transition-all duration-300"
+          >
+            Voir mes projets
+          </MagneticButton>
+          <MagneticButton
+            as="a"
+            href="#contact"
+            className="rounded-full border-2 border-violet-500 text-violet-600 dark:text-violet-400 dark:border-violet-400 bg-transparent px-6 py-3 text-sm font-medium hover:bg-violet-500/10 transition-all duration-300"
+          >
+            Me contacter
+          </MagneticButton>
+        </div>
 
         <MagneticButton as="a" href="#a-propos" className={`group flex flex-col items-center gap-1 transition-colors cursor-pointer mt-6 ${isDark ? "text-gray-400 hover:text-white" : "text-[#86868b] hover:text-[#1d1d1f]"}`}>
           <span className="text-sm font-medium">Découvrir</span>

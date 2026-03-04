@@ -10,10 +10,31 @@ const inter = Inter({
   display: "swap",
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://marvynclouet.fr";
+
 export const metadata: Metadata = {
   title: "Marvyn Clouet | AI SaaS Developer",
   description:
-    "Portfolio de Marvyn Clouet, AI SaaS Developer. Swift, React, Flutter, Node.js.",
+    "Portfolio de Marvyn Clouet, AI SaaS Developer. Développement web, mobile (Swift, React, Flutter) et solutions IA.",
+  metadataBase: new URL(siteUrl),
+  openGraph: {
+    title: "Marvyn Clouet | AI SaaS Developer",
+    description: "Portfolio — Développement web, mobile et IA. Swift, React, Flutter, Node.js.",
+    url: siteUrl,
+    siteName: "Marvyn Clouet",
+    type: "website",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Marvyn Clouet - AI SaaS Developer" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Marvyn Clouet | AI SaaS Developer",
+    description: "Portfolio — Développement web, mobile et IA.",
+  },
+  icons: {
+    icon: [{ url: "/favicon.ico", sizes: "any" }],
+    apple: "/apple-touch-icon.png",
+  },
+  manifest: "/manifest.json",
 };
 
 export default function RootLayout({

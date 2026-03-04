@@ -31,8 +31,7 @@ export default function StatsSection() {
               className="flex flex-col items-center gap-2"
             >
               <span className="text-5xl md:text-6xl lg:text-7xl font-light tabular-nums text-[#1d1d1f] dark:text-white tracking-tight">
-                <AnimatedCounter value={stat.value} duration={2} />
-                {stat.suffix}
+                <AnimatedCounter value={stat.value} duration={2} suffix={stat.suffix} />
               </span>
               <span className="text-sm text-[#86868b] dark:text-gray-400 uppercase tracking-wider">
                 {stat.label}

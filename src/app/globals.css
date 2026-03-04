@@ -44,6 +44,14 @@ body {
   -webkit-backdrop-filter: saturate(180%) blur(20px);
 }
 
+.hide-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 /* Hero: gradient animé — light = couleurs foncées, dark = couleurs vives */
 @keyframes gradient-shift {
   0%, 100% { background-position: 0% 50%; }
@@ -70,10 +78,9 @@ body {
   animation: gradient-shift 6s ease-in-out infinite;
 }
 
-/* Dark mode ou fond noir (Contact) : gradient coloré visible sur fond sombre */
+/* Dark mode : gradient coloré (bleu → violet → rose) visible sur fond sombre */
 .dark .text-gradient-animated,
-[data-theme="dark"] .text-gradient-animated,
-.contact-title-gradient {
+[data-theme="dark"] .text-gradient-animated {
   background: linear-gradient(
     90deg,
     #93c5fd,

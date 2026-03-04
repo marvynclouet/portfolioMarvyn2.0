@@ -191,7 +191,7 @@ export default function About() {
                   {category.items.map((item) => (
                     <span
                       key={item}
-                      className={`px-2.5 py-1 rounded-lg text-xs font-medium border ${stackColors[category.title] ?? "bg-gray-100 dark:bg-neutral-800 dark:text-gray-300 text-gray-800 border-gray-200/60 dark:border-neutral-700"}`}
+                      className={`inline-block px-2.5 py-1 rounded-lg text-xs font-medium border transition-transform duration-200 hover:scale-105 hover:shadow-md ${stackColors[category.title] ?? "bg-gray-100 dark:bg-neutral-800 dark:text-gray-300 text-gray-800 border-gray-200/60 dark:border-neutral-700"}`}
                     >
                       {item}
                     </span>

@@ -8,12 +8,18 @@ import ProjectPreview from "./ProjectPreview";
 import TiltCard from "./TiltCard";
 import type { Project } from "@/data/projects";
 
-const filterOptions = [
-  "Tous",
-  ...Array.from(
-    new Set(projects.flatMap((p) => p.technologies))
-  ).sort(),
-].slice(0, 8);
+const filterOptionsWithCount = (() => {
+  const all = { label: "Tous", count: projects.length };
+  const techCounts = new Map<string, number>();
+  projects.forEach((p) => {
+    p.technologies.forEach((t) => techCounts.set(t, (techCounts.get(t) ?? 0) + 1));
+  });
+  const techs = Array.from(techCounts.entries())
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 7)
+    .map(([label, count]) => ({ label, count }));
+  return [all, ...techs];
+})();
 
 export default function Projets() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
@@ -61,17 +67,21 @@ export default function Projets() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
         >
-          {filterOptions.map((option) => (
+          {filterOptionsWithCount.map(({ label, count }) => (
             <button
-              key={option}
-              onClick={() => setFilter(option)}
+              key={label}
+              type="button"
+              onClick={() => count > 0 && setFilter(label)}
+              disabled={count === 0}
               className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                filter === option
+                filter === label
                   ? "bg-[#1d1d1f] dark:bg-white dark:text-black text-white"
-                  : "bg-[#f5f5f7] dark:bg-neutral-800 dark:text-gray-300 dark:border dark:border-neutral-700 text-[#86868b] hover:bg-[#e8e8ed] dark:hover:bg-neutral-700 hover:text-[#1d1d1f] dark:hover:text-white"
+                  : count === 0
+                    ? "bg-[#f5f5f7] dark:bg-neutral-800 text-gray-400 dark:text-gray-500 cursor-default"
+                    : "bg-[#f5f5f7] dark:bg-neutral-800 dark:text-gray-300 dark:border dark:border-neutral-700 text-[#86868b] hover:bg-[#e8e8ed] dark:hover:bg-neutral-700 hover:text-[#1d1d1f] dark:hover:text-white"
               }`}
             >
-              {option}
+              {label} ({count})
             </button>
           ))}
         </motion.div>

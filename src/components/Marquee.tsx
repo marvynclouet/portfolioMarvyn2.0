@@ -46,7 +46,7 @@ export default function Marquee() {
   const duplicated = [...techItems, ...techItems];
   return (
     <div
-      className={`absolute bottom-0 left-0 right-0 overflow-hidden py-8 border-t ${
+      className={`w-full overflow-hidden py-8 border-t shrink-0 ${
         isDark ? "border-neutral-800 bg-black/60" : "border-[#d2d2d7]/50 bg-transparent"
       }`}
     >

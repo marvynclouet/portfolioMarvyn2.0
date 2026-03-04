@@ -29,11 +29,11 @@ export default function ProjectDrawer({ project, onClose }: ProjectDrawerProps) 
             className="fixed inset-0 z-[60] bg-black/60 backdrop-blur-md"
           />
           <motion.aside
-            initial={{ y: "100%" }}
-            animate={{ y: 0 }}
-            exit={{ y: "100%" }}
-            transition={{ type: "tween", duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed left-0 right-0 bottom-0 z-[61] h-[90vh] max-h-[90vh] bg-white dark:bg-neutral-900 shadow-2xl rounded-t-3xl overflow-hidden flex flex-col"
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100%" }}
+            transition={{ type: "tween", duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed right-0 top-0 bottom-0 z-[61] w-full sm:max-w-md md:max-w-lg lg:max-w-xl bg-white dark:bg-neutral-900 shadow-2xl overflow-hidden flex flex-col rounded-l-2xl"
           >
             <div className="flex-1 overflow-y-auto">
               <div className="relative aspect-video w-full bg-neutral-100 dark:bg-neutral-800 shrink-0">

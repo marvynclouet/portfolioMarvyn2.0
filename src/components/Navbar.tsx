@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useLayoutEffect } from "react";
+import { useState, useEffect, useLayoutEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
@@ -47,31 +47,39 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [visible, setVisible] = useState(true);
-  const [lastY, setLastY] = useState(0);
+  const lastYRef = useRef(0);
+  const rafRef = useRef<number | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
-      const y = window.scrollY;
-      setScrolled(y > 40);
-      if (y > lastY && y > 80) setVisible(false);
-      else if (y <= lastY || y < 80) setVisible(true);
-      setLastY(y);
-      const sections = navItems.map((item) =>
-        document.querySelector(item.href)
-      );
-      const scrollY = y + 120;
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const el = sections[i] as HTMLElement | null;
-        if (el && el.offsetTop <= scrollY) {
-          setActiveSection(navItems[i].href);
-          break;
+      if (rafRef.current !== null) return;
+      rafRef.current = requestAnimationFrame(() => {
+        rafRef.current = null;
+        const y = window.scrollY;
+        setScrolled(y > 40);
+        if (y > lastYRef.current && y > 80) setVisible(false);
+        else if (y <= lastYRef.current || y < 80) setVisible(true);
+        lastYRef.current = y;
+        const sections = navItems.map((item) =>
+          document.querySelector(item.href)
+        );
+        const scrollY = y + 120;
+        for (let i = sections.length - 1; i >= 0; i--) {
+          const el = sections[i] as HTMLElement | null;
+          if (el && el.offsetTop <= scrollY) {
+            setActiveSection(navItems[i].href);
+            break;
+          }
         }
-      }
+      });
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastY]);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
+    };
+  }, []);
 
   return (
     <motion.header
@@ -128,7 +136,14 @@ export default function Navbar() {
             </li>
           ))}
         </ul>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
+          <span className="hidden md:flex items-center gap-1.5 text-xs text-[#86868b] dark:text-gray-400">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-70" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+            </span>
+            Disponible
+          </span>
           <button
             type="button"
             onClick={toggleTheme}

@@ -6,6 +6,7 @@ import ScrollProgress from "./ScrollProgress";
 import CustomCursor from "./CustomCursor";
 import BackToTop from "./BackToTop";
 import GrainOverlay from "./GrainOverlay";
+import EasterEgg from "./EasterEgg";
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
   useEffect(() => {
@@ -29,8 +30,8 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       const Lenis = (await import("lenis")).default;
       lenis = new Lenis({
         smoothWheel: true,
-        duration: 1.2,
-        wheelMultiplier: 1.15,
+        duration: 0.65,
+        wheelMultiplier: 1.8,
         easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       });
       const raf = (time: number) => {
@@ -55,6 +56,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       <PageLoader />
       <CustomCursor />
       <GrainOverlay />
+      <EasterEgg />
       {children}
       <BackToTop />
     </>

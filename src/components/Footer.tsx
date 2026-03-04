@@ -3,6 +3,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Github, Linkedin } from "lucide-react";
+import { useTheme } from "@/context/ThemeContext";
+
 const navItems = [
   { href: "#accueil", label: "Accueil" },
   { href: "#a-propos", label: "À propos" },
@@ -14,8 +16,11 @@ const navItems = [
 const GITHUB_REPO = "https://github.com"; // à remplacer par l'URL du repo portfolio
 
 export default function Footer() {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
+
   return (
-    <footer className="bg-black border-t border-white/10 py-16 px-6">
+    <footer className="bg-white dark:bg-black border-t border-[#e8e8ed] dark:border-white/10 py-16 px-6 transition-colors duration-300">
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-10 mb-12">
           <Link
@@ -24,11 +29,11 @@ export default function Footer() {
             aria-label="Accueil"
           >
             <Image
-              src="/logodarkmode.png"
+              src={isDark ? "/logodarkmode.png" : "/logoclouet.webp"}
               alt="CLOU.ET"
               width={160}
               height={48}
-              className="h-10 w-auto brightness-0 invert"
+              className={`h-10 w-auto ${isDark ? "brightness-0 invert" : ""}`}
             />
           </Link>
           <nav className="flex flex-wrap justify-center md:justify-center gap-8">
@@ -36,7 +41,7 @@ export default function Footer() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-sm text-white/70 hover:text-white transition-colors"
+                className="text-sm text-[#86868b] dark:text-white/70 hover:text-[#1d1d1f] dark:hover:text-white transition-colors"
               >
                 {item.label}
               </Link>
@@ -47,7 +52,7 @@ export default function Footer() {
               href="https://github.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2.5 rounded-full text-white/70 hover:text-white hover:bg-white/10 transition-colors"
+              className="p-2.5 rounded-full text-[#86868b] dark:text-white/70 hover:text-[#1d1d1f] dark:hover:text-white hover:bg-[#f5f5f7] dark:hover:bg-white/10 transition-colors"
               aria-label="GitHub"
             >
               <Github className="w-5 h-5" />
@@ -56,22 +61,22 @@ export default function Footer() {
               href="https://linkedin.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2.5 rounded-full text-white/70 hover:text-white hover:bg-white/10 transition-colors"
+              className="p-2.5 rounded-full text-[#86868b] dark:text-white/70 hover:text-[#1d1d1f] dark:hover:text-white hover:bg-[#f5f5f7] dark:hover:bg-white/10 transition-colors"
               aria-label="LinkedIn"
             >
               <Linkedin className="w-5 h-5" />
             </a>
           </div>
         </div>
-        <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
-          <p className="text-white/50 text-sm">
+        <div className="pt-8 border-t border-[#e8e8ed] dark:border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+          <p className="text-[#86868b] dark:text-white/50 text-sm">
             © 2025 Marvyn Clouet — Fait avec ❤️ et beaucoup de café
           </p>
           <a
             href={GITHUB_REPO}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm text-white/50 hover:text-violet-400 transition-colors inline-flex items-center gap-1.5"
+            className="text-sm text-[#86868b] dark:text-white/50 hover:text-violet-500 transition-colors inline-flex items-center gap-1.5"
           >
             <Github className="w-4 h-4" />
             Voir le code source

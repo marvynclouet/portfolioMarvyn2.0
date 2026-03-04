@@ -31,9 +31,9 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="contact-section relative py-24 md:py-32 px-6 scroll-mt-20 bg-black overflow-hidden">
-      {/* Grain subtil */}
-      <div className="absolute inset-0 pointer-events-none opacity-[0.04]" aria-hidden>
+    <section id="contact" className="relative py-24 md:py-32 px-6 scroll-mt-20 bg-white dark:bg-black overflow-hidden transition-colors duration-300">
+      {/* Grain subtil (visible surtout en dark) */}
+      <div className="absolute inset-0 pointer-events-none opacity-[0.02] dark:opacity-[0.04]" aria-hidden>
         <svg className="absolute inset-0 w-full h-full">
           <filter id="contact-grain">
             <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" />
@@ -47,7 +47,7 @@ export default function Contact() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-gray-400 text-xs uppercase tracking-widest mb-2"
+          className="text-gray-500 dark:text-gray-400 text-xs uppercase tracking-widest mb-2"
         >
           Un projet en tête ?
         </motion.p>
@@ -57,13 +57,13 @@ export default function Contact() {
           viewport={{ once: true }}
           className="text-5xl md:text-6xl lg:text-7xl font-light mb-4"
         >
-          <span className="text-gradient-animated contact-title-gradient">Travaillons ensemble</span>
+          <span className="text-gradient-animated">Travaillons ensemble</span>
         </motion.h2>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-gray-400 mb-16"
+          className="text-gray-500 dark:text-gray-400 mb-16"
         >
           Envie d&apos;échanger ? Envoyez-moi un message.
         </motion.p>
@@ -77,16 +77,16 @@ export default function Contact() {
           >
             <a
               href="mailto:clouetmarvyn@gmail.com"
-              className="flex items-center gap-3 text-white hover:text-white/80 transition-colors"
+              className="flex items-center gap-3 text-[#1d1d1f] dark:text-white hover:opacity-80 transition-colors"
             >
-              <Mail className="w-5 h-5 text-white/50 shrink-0" />
+              <Mail className="w-5 h-5 text-[#86868b] dark:text-white/50 shrink-0" />
               clouetmarvyn@gmail.com
             </a>
             <a
               href="tel:+33658364915"
-              className="flex items-center gap-3 text-white hover:text-white/80 transition-colors"
+              className="flex items-center gap-3 text-[#1d1d1f] dark:text-white hover:opacity-80 transition-colors"
             >
-              <Phone className="w-5 h-5 text-white/50 shrink-0" />
+              <Phone className="w-5 h-5 text-[#86868b] dark:text-white/50 shrink-0" />
               06 58 36 49 15
             </a>
             <div className="flex gap-3 pt-4">
@@ -94,7 +94,7 @@ export default function Contact() {
                 href="https://github.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 rounded-full text-white/70 hover:text-white hover:bg-white/10 transition-all"
+                className="p-3 rounded-full text-[#86868b] dark:text-white/70 hover:text-[#1d1d1f] dark:hover:text-white hover:bg-[#f5f5f7] dark:hover:bg-white/10 transition-all"
                 aria-label="GitHub"
               >
                 <Github className="w-6 h-6" />
@@ -103,7 +103,7 @@ export default function Contact() {
                 href="https://linkedin.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 rounded-full text-white/70 hover:text-white hover:bg-white/10 transition-all"
+                className="p-3 rounded-full text-[#86868b] dark:text-white/70 hover:text-[#1d1d1f] dark:hover:text-white hover:bg-[#f5f5f7] dark:hover:bg-white/10 transition-all"
                 aria-label="LinkedIn"
               >
                 <Linkedin className="w-6 h-6" />
@@ -126,10 +126,10 @@ export default function Contact() {
                 id="name"
                 {...register("name", { required: "Requis" })}
                 placeholder="Nom et prénom"
-                className="contact-input w-full bg-transparent text-white placeholder:text-gray-500 px-0 py-4 border-0 border-b border-white/20 focus:border-violet-400 focus:outline-none focus:ring-0 transition-colors duration-300"
+                className="w-full bg-transparent text-[#1d1d1f] dark:text-white placeholder:text-gray-500 px-0 py-4 border-0 border-b border-[#d2d2d7] dark:border-white/20 focus:border-violet-400 focus:outline-none focus:ring-0 transition-colors duration-300"
               />
               {errors.name && (
-                <p className="mt-1 text-sm text-red-400">{errors.name.message}</p>
+                <p className="mt-1 text-sm text-red-500 dark:text-red-400">{errors.name.message}</p>
               )}
             </div>
             <div>
@@ -141,10 +141,10 @@ export default function Contact() {
                 type="email"
                 {...register("email", { required: "Requis" })}
                 placeholder="vous@exemple.com"
-                className="contact-input w-full bg-transparent text-white placeholder:text-gray-500 px-0 py-4 border-0 border-b border-white/20 focus:border-violet-400 focus:outline-none focus:ring-0 transition-colors duration-300"
+                className="w-full bg-transparent text-[#1d1d1f] dark:text-white placeholder:text-gray-500 px-0 py-4 border-0 border-b border-[#d2d2d7] dark:border-white/20 focus:border-violet-400 focus:outline-none focus:ring-0 transition-colors duration-300"
               />
               {errors.email && (
-                <p className="mt-1 text-sm text-red-400">{errors.email.message}</p>
+                <p className="mt-1 text-sm text-red-500 dark:text-red-400">{errors.email.message}</p>
               )}
             </div>
             <div>
@@ -156,10 +156,10 @@ export default function Contact() {
                 rows={4}
                 {...register("message", { required: "Requis" })}
                 placeholder="Votre message..."
-                className="contact-input w-full bg-transparent text-white placeholder:text-gray-500 px-0 py-4 border-0 border-b border-white/20 focus:border-violet-400 focus:outline-none focus:ring-0 transition-colors duration-300 resize-none"
+                className="w-full bg-transparent text-[#1d1d1f] dark:text-white placeholder:text-gray-500 px-0 py-4 border-0 border-b border-[#d2d2d7] dark:border-white/20 focus:border-violet-400 focus:outline-none focus:ring-0 transition-colors duration-300 resize-none"
               />
               {errors.message && (
-                <p className="mt-1 text-sm text-red-400">{errors.message.message}</p>
+                <p className="mt-1 text-sm text-red-500 dark:text-red-400">{errors.message.message}</p>
               )}
             </div>
             <MagneticButton

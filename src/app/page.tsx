@@ -4,6 +4,7 @@ import About from "@/components/About";
 import StatsSection from "@/components/StatsSection";
 import Parcours from "@/components/Parcours";
 import Projets from "@/components/Projets";
+import Testimonials from "@/components/Testimonials";
 import FAQ from "@/components/FAQ";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
@@ -18,6 +19,7 @@ export default function Home() {
         <StatsSection />
         <Parcours />
         <Projets />
+        <Testimonials />
         <FAQ />
         <Contact />
         <Footer />
