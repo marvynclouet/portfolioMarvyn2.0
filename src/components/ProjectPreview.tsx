@@ -39,8 +39,8 @@ export default function ProjectPreview({
   const [videoFailed, setVideoFailed] = useState(false);
 
   const hasVideo = project.video && project.video.startsWith("/") && !videoFailed;
-  const useLocal = project.image.startsWith("/") && !localFailed;
-  const useApi = project.link && !apiFailed && (!useLocal || localFailed);
+  const useApi = project.link && !apiFailed;
+  const useLocal = project.image.startsWith("/") && !localFailed && !useApi;
   const showPlaceholder = !hasVideo && !useLocal && !useApi;
 
   const aspectClass =
@@ -77,10 +77,27 @@ export default function ProjectPreview({
     );
   }
 
+  if (useApi) {
+    const apiSrc = `/api/preview?url=${encodeURIComponent(project.link!)}`;
+    return (
+      <div className={baseClass}>
+        {/* img pour URL dynamique (redirect API) - prioritaire quand link existe pour éviter 404 sur /projects/* */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={apiSrc}
+          alt={`Aperçu ${project.title}`}
+          className="absolute inset-0 h-full w-full object-cover object-top"
+          loading={priority ? "eager" : "lazy"}
+          onError={() => setApiFailed(true)}
+        />
+      </div>
+    );
+  }
+
   if (useLocal) {
     return (
       <div className={baseClass}>
-        {/* img natif pour vignettes locales (évite échec Next/Image sur certains webp) */}
+        {/* img natif pour vignettes locales (projets sans link) */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={project.image}
@@ -93,18 +110,13 @@ export default function ProjectPreview({
     );
   }
 
-  const apiSrc = `/api/preview?url=${encodeURIComponent(project.link!)}`;
+  const gradient = getPlaceholderGradient(project.id);
   return (
-    <div className={baseClass}>
-      {/* img pour URL dynamique (redirect API) */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={apiSrc}
-        alt={`Aperçu ${project.title}`}
-        className="absolute inset-0 h-full w-full object-cover object-top"
-        loading={priority ? "eager" : "lazy"}
-        onError={() => setApiFailed(true)}
-      />
+    <div className={`${baseClass} flex flex-col items-center justify-center gap-3 bg-gradient-to-br ${gradient} p-6`}>
+      <LayoutGrid className="w-10 h-10 md:w-12 md:h-12 text-[#86868b] dark:text-gray-500" strokeWidth={1.2} />
+      <span className="text-sm md:text-base font-medium text-[#1d1d1f] dark:text-white text-center line-clamp-3 px-2">
+        {project.title}
+      </span>
     </div>
   );
 }
