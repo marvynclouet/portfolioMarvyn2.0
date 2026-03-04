@@ -1,26 +1,89 @@
 @import "tailwindcss";
 
+/* Dark mode: class .dark ou data-theme="dark" sur <html> */
+@custom-variant dark (&:where(.dark *, [data-theme="dark"] *));
+
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #1d1d1f;
+  --muted: #86868b;
+  --apple-black: #1d1d1f;
+  --apple-gray: #86868b;
+}
+
+.dark,
+[data-theme="dark"] {
+  color-scheme: dark;
+  --background: #000000;
+  --foreground: #ffffff;
+  --muted: #a1a1a6;
+  --apple-black: #ffffff;
+  --apple-gray: #a1a1a6;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-inter);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Backdrop blur utility for navbar */
+.backdrop-blur-nav {
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+}
+
+/* Hero: gradient animé — light = couleurs foncées, dark = couleurs vives */
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Light mode: gradient foncé (visible sur fond blanc) — clip strict pour éviter blocs */
+.text-gradient-animated {
+  display: inline-block;
+  width: fit-content;
+  max-width: 100%;
+  background: linear-gradient(
+    90deg,
+    #1e3a8a,
+    #4c1d95,
+    #1f2937,
+    #1e3a8a
+  );
+  background-size: 200% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: gradient-shift 6s ease-in-out infinite;
+}
+
+/* Dark mode ou fond noir (Contact) : gradient coloré visible sur fond sombre */
+.dark .text-gradient-animated,
+[data-theme="dark"] .text-gradient-animated,
+.contact-title-gradient {
+  background: linear-gradient(
+    90deg,
+    #93c5fd,
+    #c4b5fd,
+    #f9a8d4,
+    #93c5fd
+  );
+  background-size: 200% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
