@@ -46,12 +46,12 @@ export default function Marquee() {
   const duplicated = [...techItems, ...techItems];
   return (
     <div
-      className={`w-full overflow-hidden py-8 border-t shrink-0 ${
+      className={`w-full overflow-hidden py-5 px-6 border-t shrink-0 ${
         isDark ? "border-neutral-800 bg-black/60" : "border-[#d2d2d7]/50 bg-transparent"
       }`}
     >
       <motion.div
-        className="flex gap-16 items-center"
+        className="flex gap-16 items-center min-w-max"
         animate={{ x: [0, -1536] }}
         transition={{
           x: { repeat: Infinity, repeatType: "loop", duration: 30, ease: "linear" },

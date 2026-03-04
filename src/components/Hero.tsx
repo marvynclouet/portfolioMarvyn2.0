@@ -57,7 +57,7 @@ export default function Hero() {
   return (
     <section
       id="accueil"
-      className={`relative min-h-[100vh] min-h-[100dvh] flex flex-col px-6 pt-20 overflow-hidden ${isDark ? "bg-black" : "bg-white"}`}
+      className={`relative min-h-[100vh] min-h-[100dvh] flex flex-col px-6 pt-20 pb-8 overflow-hidden ${isDark ? "bg-black" : "bg-white"}`}
       style={isDark ? { backgroundColor: "#000" } : undefined}
     >
       {/* Gradient uniquement en mode clair */}
